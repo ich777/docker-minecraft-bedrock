@@ -12,6 +12,11 @@ if [ -z "$INS_V" ]; then
         echo "----------------------------------------------------------------------------------------------------"
         sleep infinity
     fi
+    if [ ! -s ${SERVER_DIR}/bedrock-server-${GAME_VERSION}.zip ]; then
+    	echo "---You probably entered a wrong version number the server zip is empty---"
+        rm bedrock-server-${GAME_VERSION}.zip
+        sleep infinity
+    fi
     unzip -o bedrock-server-${GAME_VERSION}.zip
     rm bedrock-server-${GAME_VERSION}.zip
     touch bedrock-server-${GAME_VERSION}.installed
@@ -19,7 +24,6 @@ if [ -z "$INS_V" ]; then
     wget -qO server.properties https://raw.githubusercontent.com/ich777/docker-minecraft-bedrock/master/config/server.properties
 elif [ "${GAME_VERSION}" != "$INS_V" ]; then
 	echo "---Version missmatch Installed: v$INS_V - Prefered:${GAME_VERSION}, downloading v${GAME_VERSION}---"
-	rm ${SERVER_DIR}/bedrock-server-$INS_V.installed
 	cd ${SERVER_DIR}
 	wget -qO bedrock-server-${GAME_VERSION}.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-${GAME_VERSION}.zip
 	sleep 2
@@ -29,6 +33,11 @@ elif [ "${GAME_VERSION}" != "$INS_V" ]; then
 		echo "----------------------------------------------------------------------------------------------------"
 		sleep infinity
 	fi
+    if [ ! -s ${SERVER_DIR}/bedrock-server-${GAME_VERSION}.zip ]; then
+    	echo "---You probably entered a wrong version number the server zip is empty---"
+        rm bedrock-server-${GAME_VERSION}.zip
+        sleep infinity
+    fi
     echo "---Creating Backup of config files---"
     mkdir ${SERVER_DIR}/backup_config_files
     mv ${SERVER_DIR}/server.properties ${SERVER_DIR}/backup_config_files/server.properties
@@ -43,6 +52,7 @@ elif [ "${GAME_VERSION}" != "$INS_V" ]; then
     mv ${SERVER_DIR}/backup_config_files/permissions.json ${SERVER_DIR}/permissions.json
     mv ${SERVER_DIR}/backup_config_files/whitelist.json ${SERVER_DIR}/whitelist.json
     rm -R ${SERVER_DIR}/backup_config_files
+    rm ${SERVER_DIR}/bedrock-server-$INS_V.installed
 	touch bedrock-server-${GAME_VERSION}.installed
 elif [ "${GAME_VERSION}" == "$INS_V" ]; then
 	echo "---Minecraft Bedrock Server Version up-to-date---"
