@@ -22,7 +22,7 @@ RUN ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
-RUN chown -R steam /opt/scripts
+RUN chown -R minecraft /opt/scripts
 
 USER minecraft
 
