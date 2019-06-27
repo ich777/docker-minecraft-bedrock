@@ -1,27 +1,47 @@
 #!/bin/bash
 echo "---sleep---"
 sleep infinity
-CUR_V="${GAME_VERSION}"
-INS_V="$(find ${SERVER_DIR} -name *.installed)"
 
-echo "---Checking for Minecraft Bedrock Server ${GAME_VERSION} executable---"
-if [ ! -f ${SERVER_DIR}/${GAME_VERSION}.installed ]; then
+
+INS_V="$(find ${SERVER_DIR} -name *.installed | cut -d '-' -f 3 | awk -F ".installed" '{print $1}')"
+
+if [ -z "$INS_V" ]; then
+	echo "---Minecraft Bedrock not found, Downloading v${GAME_VERSION}---"
 	cd ${SERVER_DIR}
-	echo "---Downloading Minecraft Bedrock Server ${GAME_VERSION}---"
-    wget -qi ${GAME_VERSION}.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-${GAME_VERSION}.zip
+	wget -qi https://minecraft.azureedge.net/bin-linux/bedrock-server-${GAME_VERSION}.zip
     sleep 2
-    unzip -o ${GAME_VERSION}.zip
-    rm ${GAME_VERSION}.zip
-    touch ${GAME_VERSION}.installed
-    if [ ! -f ${SERVER_DIR}/${GAME_VERSION} ]; then
+    unzip -o bedrock-server-${GAME_VERSION}.zip
+    rm bedrock-server-${GAME_VERSION}.zip
+    touch bedrock-server-${GAME_VERSION}.installed
+    if [ ! -f ${SERVER_DIR}/bedrock-server-${GAME_VERSION}.installed ]; then
     	echo "----------------------------------------------------------------------------------------------------"
     	echo "---Something went wrong, please install Minecraft Bedrock Server manually. Putting server into sleep mode---"
         echo "----------------------------------------------------------------------------------------------------"
         sleep infinity
     fi
+elif [ "${GAME_VERSION}" != "$INS_V" ]; then
+	echo "---Version missmatch Installed: v$INS_V - Prefered:${GAME_VERSION}, downloading v${GAME_VERSION}---"
+	rm ${SERVER_DIR}/bedrock-server-$INS_V.installed
+	cd ${SERVER_DIR}
+	wget -qi https://minecraft.azureedge.net/bin-linux/bedrock-server-${GAME_VERSION}.zip
+	sleep 2
+	unzip -o bedrock-server-${GAME_VERSION}.zip
+	rm bedrock-server-${GAME_VERSION}.zip
+	touch bedrock-server-${GAME_VERSION}.installed
+	if [ ! -f ${SERVER_DIR}/bedrock-server-${GAME_VERSION}.installed ]; then
+		echo "----------------------------------------------------------------------------------------------------"
+		echo "---Something went wrong, please install Minecraft Bedrock Server manually. Putting server into sleep mode---"
+		echo "----------------------------------------------------------------------------------------------------"
+		sleep infinity
+	fi
+elif [ "${GAME_VERSION}" == "$INS_V" ]; then
+	echo "---Minecraft Bedrock Server Version up-to-date---"
 else
-	echo "---Minecraft Server Bedrock executable found---"
+	echo "---Something went wrong, putting server in sleep mode---"
+	sleep infinity
 fi
+
+
 
 echo "---Preparing Server---"
 echo "---Checking for 'server.properties'---"
