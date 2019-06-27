@@ -6,23 +6,29 @@ if [ -z "$INS_V" ]; then
 	cd ${SERVER_DIR}
 	wget -qO bedrock-server-${GAME_VERSION}.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-${GAME_VERSION}.zip
     sleep 2
-    unzip -o bedrock-server-${GAME_VERSION}.zip
-    rm bedrock-server-${GAME_VERSION}.zip
-    touch bedrock-server-${GAME_VERSION}.installed
-    mv ${SERVER_DIR}/server.properties ${SERVER_DIR}/vanilla.server.properties
-    wget -qO server.properties https://raw.githubusercontent.com/ich777/docker-minecraft-bedrock/master/config/server.properties
-    if [ ! -f ${SERVER_DIR}/bedrock-server-${GAME_VERSION}.installed ]; then
+    if [ ! -f ${SERVER_DIR}/bedrock-server-${GAME_VERSION}.zip ]; then
     	echo "----------------------------------------------------------------------------------------------------"
     	echo "---Something went wrong, please install Minecraft Bedrock Server manually. Putting server into sleep mode---"
         echo "----------------------------------------------------------------------------------------------------"
         sleep infinity
     fi
+    unzip -o bedrock-server-${GAME_VERSION}.zip
+    rm bedrock-server-${GAME_VERSION}.zip
+    touch bedrock-server-${GAME_VERSION}.installed
+    mv ${SERVER_DIR}/server.properties ${SERVER_DIR}/vanilla.server.properties
+    wget -qO server.properties https://raw.githubusercontent.com/ich777/docker-minecraft-bedrock/master/config/server.properties
 elif [ "${GAME_VERSION}" != "$INS_V" ]; then
 	echo "---Version missmatch Installed: v$INS_V - Prefered:${GAME_VERSION}, downloading v${GAME_VERSION}---"
 	rm ${SERVER_DIR}/bedrock-server-$INS_V.installed
 	cd ${SERVER_DIR}
 	wget -qO bedrock-server-${GAME_VERSION}.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-${GAME_VERSION}.zip
 	sleep 2
+	if [ ! -f ${SERVER_DIR}/bedrock-server-${GAME_VERSION}.zip ]; then
+		echo "----------------------------------------------------------------------------------------------------"
+		echo "---Something went wrong, please install Minecraft Bedrock Server manually. Putting server into sleep mode---"
+		echo "----------------------------------------------------------------------------------------------------"
+		sleep infinity
+	fi
     echo "---Creating Backup of config files---"
     mkdir ${SERVER_DIR}/backup_config_files
     mv ${SERVER_DIR}/server.properties ${SERVER_DIR}/backup_config_files/server.properties
@@ -38,12 +44,6 @@ elif [ "${GAME_VERSION}" != "$INS_V" ]; then
     mv ${SERVER_DIR}/backup_config_files/whitelist.json ${SERVER_DIR}/whitelist.json
     rm -R ${SERVER_DIR}/backup_config_files
 	touch bedrock-server-${GAME_VERSION}.installed
-	if [ ! -f ${SERVER_DIR}/bedrock-server-${GAME_VERSION}.installed ]; then
-		echo "----------------------------------------------------------------------------------------------------"
-		echo "---Something went wrong, please install Minecraft Bedrock Server manually. Putting server into sleep mode---"
-		echo "----------------------------------------------------------------------------------------------------"
-		sleep infinity
-	fi
 elif [ "${GAME_VERSION}" == "$INS_V" ]; then
 	echo "---Minecraft Bedrock Server Version up-to-date---"
 else
