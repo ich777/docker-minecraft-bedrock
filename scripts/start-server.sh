@@ -1,10 +1,10 @@
 #!/bin/bash
 echo "---sleep---"
 sleep infinity
-CUR_V="$"
+CUR_V="${GAME_VERSION}"
 INS_V="$(find ${SERVER_DIR} -name *.installed)"
 
-echo "---Checking for Minecraft Bedrock Server executable ---"
+echo "---Checking for Minecraft Bedrock Server ${GAME_VERSION} executable---"
 if [ ! -f ${SERVER_DIR}/${GAME_VERSION}.installed ]; then
 	cd ${SERVER_DIR}
 	echo "---Downloading Minecraft Bedrock Server ${GAME_VERSION}---"
