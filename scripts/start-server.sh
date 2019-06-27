@@ -31,6 +31,7 @@ elif [ "${GAME_VERSION}" != "$INS_V" ]; then
     echo "---Installing v${GAME_VERSION}---"
 	unzip -o bedrock-server-${GAME_VERSION}.zip
 	rm bedrock-server-${GAME_VERSION}.zip
+    mv ${SERVER_DIR}/server.properties ${SERVER_DIR}/vanilla.server.properties
     echo "---Copying Backup config files back to server directory---"
     mv ${SERVER_DIR}/backup_config_files/server.properties ${SERVER_DIR}/server.properties
     mv ${SERVER_DIR}/backup_config_files/permissions.json ${SERVER_DIR}/permissions.json
