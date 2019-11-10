@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "---Setting umask to ${UMASK}---"
+umask ${UMASK}
 INS_V="$(find ${SERVER_DIR} -name *.installed | cut -d '-' -f 3 | awk -F ".installed" '{print $1}')"
 
 if [ -z "$INS_V" ]; then
@@ -62,7 +64,7 @@ else
 fi
 
 echo "---Preparing Server---"
-chmod -R 770 ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
 echo "---Checking for 'server.properties'---"
 if [ ! -f ${SERVER_DIR}/server.properties ]; then
     echo "---No 'server.properties' found, downloading...---"
