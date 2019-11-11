@@ -1,7 +1,7 @@
 #!/bin/bash
+INS_V="$(find ${SERVER_DIR} -name *.installed | cut -d '-' -f 3 | awk -F ".installed" '{print $1}')"
 echo "---Setting umask to ${UMASK}---"
 umask ${UMASK}
-INS_V="$(find ${SERVER_DIR} -name *.installed | cut -d '-' -f 3 | awk -F ".installed" '{print $1}')"
 
 if [ -z "$INS_V" ]; then
 	echo "---Minecraft Bedrock not found, Downloading v${GAME_VERSION}---"
