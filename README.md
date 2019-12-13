@@ -1,8 +1,8 @@
 # Minecraft Bedrock Server in Docker optimized for Unraid
 This is a Basic Minecraft Bedrock Edition Server.
-It will download the specified version of Minecraft Bedrock Edition.
+This container downloads Minecraft Bedrock Edition Server in the specified version or you can also set it to 'latest' to download and check on every restart if there is a newer version available.
 
-If you want to update the server simply enter the version wich you want to download, you also can downgrade your server (no guarantee that it works if you downgrade much versions).
+UPDATE NOTICE: If you set the GAME_VERSION to 'latest' the container will check on every start/restart if there is a newer version available, otherwise enter the preferred version number that you want to install, you also can downgrade your server (no guarantee that it works if you downgrade much versions).
 
 >**CONSOLE:** To connect to the console open up the terminal for this docker and type in: 'screen -xS Minecraft' (without quotes).
 
@@ -10,7 +10,7 @@ If you want to update the server simply enter the version wich you want to downl
 | Name | Value | Example |
 | --- | --- | --- |
 | SERVER_DIR | Folder for gamefile | /serverdata/serverfiles |
-| GAME_VERSION | Enter your preferred game version | 1.11.4.2 |
+| GAME_VERSION | Enter your preferred game version | latest |
 | GAME_PARAMS | Extra startup Parameters if needed (leave empty if not needed) | |
 | UID | User Identifier | 99 |
 | GID | Group Identifier | 100 |
@@ -19,7 +19,7 @@ If you want to update the server simply enter the version wich you want to downl
 ```
 docker run --name MinecraftBedrockServer -d \
 	-p 19132:19132 -p 19132:19132/udp \
-	--env 'GAME_VERSION=1.11.4.2' \
+	--env 'GAME_VERSION=latest' \
 	--env 'UID=99' \
 	--env 'GID=100' \
 	--volume /mnt/user/appdata/minecraftedrockserver:/serverdata/serverfiles \
