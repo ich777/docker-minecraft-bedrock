@@ -1,5 +1,11 @@
 #!/bin/bash
+LAT_V="$(curl -v --silent  https://www.minecraft.net/en-us/download/server/bedrock/ 2>&1 | \
+	grep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' | \
+    sed 's#.*/bedrock-server-##' | sed 's/.zip//')"
 INS_V="$(find ${SERVER_DIR} -name *.installed | cut -d '-' -f 3 | awk -F ".installed" '{print $1}')"
+if [ "${GAME_VERSION}" == "latest" ]; then
+	GAME_VERSION=$LAT_V
+fi
 echo "---Setting umask to ${UMASK}---"
 umask ${UMASK}
 
