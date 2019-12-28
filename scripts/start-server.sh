@@ -12,14 +12,13 @@ umask ${UMASK}
 if [ -z "$INS_V" ]; then
 	echo "---Minecraft Bedrock not found, Downloading v${GAME_VERSION}---"
 	cd ${SERVER_DIR}
-	wget -qO bedrock-server-${GAME_VERSION}.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-${GAME_VERSION}.zip
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://minecraft.azureedge.net/bin-linux/bedrock-server-${GAME_VERSION}.zip ; then
+		echo "---Successfully downloaded Minecraft Bedrock Edition!---"
+	else
+		echo "---Something went wrong, can't download Minecraft Bedrock Edition, putting server in sleep mode---"
+		sleep infinity
+	fi
     sleep 2
-    if [ ! -f ${SERVER_DIR}/bedrock-server-${GAME_VERSION}.zip ]; then
-    	echo "----------------------------------------------------------------------------------------------------"
-    	echo "---Something went wrong, please install Minecraft Bedrock Server manually. Putting server into sleep mode---"
-        echo "----------------------------------------------------------------------------------------------------"
-        sleep infinity
-    fi
     if [ ! -s ${SERVER_DIR}/bedrock-server-${GAME_VERSION}.zip ]; then
     	echo "---You probably entered a wrong version number the server zip is empty---"
         rm bedrock-server-${GAME_VERSION}.zip
@@ -29,18 +28,16 @@ if [ -z "$INS_V" ]; then
     rm bedrock-server-${GAME_VERSION}.zip
     touch bedrock-server-${GAME_VERSION}.installed
     mv ${SERVER_DIR}/server.properties ${SERVER_DIR}/vanilla.server.properties
-    wget -qO server.properties https://raw.githubusercontent.com/ich777/docker-minecraft-bedrock/master/config/server.properties
 elif [ "${GAME_VERSION}" != "$INS_V" ]; then
 	echo "---Version missmatch Installed: v$INS_V - Prefered:${GAME_VERSION}, downloading v${GAME_VERSION}---"
 	cd ${SERVER_DIR}
-	wget -qO bedrock-server-${GAME_VERSION}.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-${GAME_VERSION}.zip
-	sleep 2
-	if [ ! -f ${SERVER_DIR}/bedrock-server-${GAME_VERSION}.zip ]; then
-		echo "----------------------------------------------------------------------------------------------------"
-		echo "---Something went wrong, please install Minecraft Bedrock Server manually. Putting server into sleep mode---"
-		echo "----------------------------------------------------------------------------------------------------"
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://minecraft.azureedge.net/bin-linux/bedrock-server-${GAME_VERSION}.zip ; then
+		echo "---Successfully downloaded Minecraft Bedrock Edition!---"
+	else
+		echo "---Something went wrong, can't download Minecraft Bedrock Edition, putting server in sleep mode---"
 		sleep infinity
 	fi
+    sleep 2
     if [ ! -s ${SERVER_DIR}/bedrock-server-${GAME_VERSION}.zip ]; then
     	echo "---You probably entered a wrong version number the server zip is empty---"
         rm bedrock-server-${GAME_VERSION}.zip
@@ -74,7 +71,14 @@ chmod -R 777 ${DATA_DIR}
 echo "---Checking for 'server.properties'---"
 if [ ! -f ${SERVER_DIR}/server.properties ]; then
     echo "---No 'server.properties' found, downloading...---"
-    wget -qO ${SERVER_DIR}/server.properties https://raw.githubusercontent.com/ich777/docker-minecraft-bedrock/master/config/server.properties
+	cd ${SERVER_DIR}
+    if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-minecraft-bedrock/master/config/server.properties ; then
+		echo "---Successfully downloaded 'server.properties'---"
+	else
+		echo "---Something went wrong, can't download 'server.properties', putting server in sleep mode---"
+	sleep infinity
+	fi
+    sleep 2
 else
     echo "---'server.properties' found..."
 fi
