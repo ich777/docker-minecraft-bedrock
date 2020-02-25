@@ -6,8 +6,6 @@ INS_V="$(find ${SERVER_DIR} -name *.installed | cut -d '-' -f 3 | awk -F ".insta
 if [ "${GAME_VERSION}" == "latest" ]; then
 	GAME_VERSION=$LAT_V
 fi
-echo "---Setting umask to ${UMASK}---"
-umask ${UMASK}
 
 if [ -z "$INS_V" ]; then
 	echo "---Minecraft Bedrock not found, Downloading v${GAME_VERSION}---"
@@ -67,7 +65,7 @@ else
 fi
 
 echo "---Preparing Server---"
-chmod -R 777 ${DATA_DIR}
+chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Checking for 'server.properties'---"
 if [ ! -f ${SERVER_DIR}/server.properties ]; then
     echo "---No 'server.properties' found, downloading...---"
