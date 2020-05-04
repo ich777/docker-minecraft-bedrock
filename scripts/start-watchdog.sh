@@ -5,5 +5,5 @@ do
 		kill "$(pidof tail)"
 		exit 0
 	fi
-	sleep 2
+	sleep 60
 done
