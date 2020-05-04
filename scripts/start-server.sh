@@ -87,4 +87,5 @@ echo "---Starting Server---"
 cd ${SERVER_DIR}
 LD_LIBRARY_PATH=. && screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/bedrock_server ${GAME_PARAMS}
 sleep 2
+screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
 tail -f ${SERVER_DIR}/masterLog.0
