@@ -41,5 +41,5 @@ do
 	if ! pgrep -f start-server.sh >/dev/null ; then
 		exit 0
 	fi
-	sleep 2
+	sleep 5
 done
