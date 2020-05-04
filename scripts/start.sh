@@ -27,7 +27,7 @@ term_handler() {
 		do
 			sleep 1
 		done
-		echo "---Shutdown successfull---"
+		echo "---Shutdown successful!---"
 		sleep 0.5
 	fi
 	exit 0
