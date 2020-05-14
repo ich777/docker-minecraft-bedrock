@@ -30,7 +30,7 @@ term_handler() {
 		echo "---Shutdown successful!---"
 		sleep 0.5
 	fi
-	exit 0
+	exit 143;
 }
 
 trap 'kill ${!}; term_handler' SIGTERM
@@ -38,8 +38,6 @@ su ${USER} -c "/opt/scripts/start-server.sh" &
 killpid="$!"
 while true
 do
-	if ! pgrep -f start-server.sh >/dev/null ; then
-		exit 0
-	fi
-	sleep 5
+	wait $killpid
+	exit 0;
 done
