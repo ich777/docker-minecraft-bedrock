@@ -82,6 +82,7 @@ else
 fi
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
+screen -wipe
 
 echo "---Starting Server---"
 cd ${SERVER_DIR}
