@@ -22,10 +22,7 @@ chown -R ${UID}:${GID} ${DATA_DIR}
 term_handler() {
 	screenpid="$(su $USER -c "screen -list | grep "Detached" | grep "Minecraft" | cut -d '.' -f1")"
 	su $USER -c "screen -S Minecraft -X stuff 'stop^M'" >/dev/null
-	while kill -0 "${screenpid//[[:blank:]]/}" 2>/dev/null
-	do
-		sleep 0.5
-	done
+	tail --pid="${screenpid//[[:blank:]]/}" -f 2>/dev/null
 	exit 143;
 }
 
