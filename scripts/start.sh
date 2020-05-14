@@ -18,18 +18,15 @@ fi
 echo "---Starting...---"
 chown -R ${UID}:${GID} /opt/scripts
 chown -R ${UID}:${GID} ${DATA_DIR}
-killpid=0
+
 term_handler() {
-	if [ $killpid -ne 0 ]; then
-		screenpid="$(su $USER -c "screen -list | grep "Detached" | grep "Minecraft" | cut -d '.' -f1")"
-		su $USER -c "screen -S Minecraft -X stuff 'stop^M'" >/dev/null
-		while [ -e /proc/${screenpid//[[:blank:]]/} ]
-		do
-			sleep 1
-		done
-		echo "---Shutdown successful!---"
-		sleep 0.5
-	fi
+	screenpid="$(su $USER -c "screen -list | grep "Detached" | grep "Minecraft" | cut -d '.' -f1")"
+	su $USER -c "screen -S Minecraft -X stuff 'stop^M'" >/dev/null
+	while kill -0 "${screenpid//[[:blank:]]/}" 2>/dev/null
+	do
+		sleep 1
+	done
+	kill -SIGTERM $killpid
 	exit 143;
 }
 
