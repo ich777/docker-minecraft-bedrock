@@ -24,9 +24,8 @@ term_handler() {
 	su $USER -c "screen -S Minecraft -X stuff 'stop^M'" >/dev/null
 	while kill -0 "${screenpid//[[:blank:]]/}" 2>/dev/null
 	do
-		sleep 1
+		sleep 0.5
 	done
-	kill -SIGTERM $killpid
 	exit 143;
 }
 
