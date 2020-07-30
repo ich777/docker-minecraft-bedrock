@@ -3,9 +3,14 @@ LAT_V="$(curl -v --silent  https://www.minecraft.net/en-us/download/server/bedro
 	grep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' | \
     sed 's#.*/bedrock-server-##' | sed 's/.zip//')"
 INS_V="$(find ${SERVER_DIR} -name *.installed | cut -d '-' -f 3 | awk -F ".installed" '{print $1}')"
+if [ -z $LAT_V ]; then
+	echo "---Can't get latest version from Minecraft Bedrock falling back to v 1.16.1.02---"
+    LAT_V="1.16.1.02"
+fi
 if [ "${GAME_VERSION}" == "latest" ]; then
 	GAME_VERSION=$LAT_V
 fi
+
 
 if [ -z "$INS_V" ]; then
 	echo "---Minecraft Bedrock not found, Downloading v${GAME_VERSION}---"
