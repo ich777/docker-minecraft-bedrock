@@ -1,3 +1,4 @@
 #!/bin/bash
 sleep 5
-gotty -w ${GOTTY_PARAMS} screen -xS Minecraft
+TERM=linux
+gotty -w --title-format Minecraft ${GOTTY_PARAMS} screen -xS Minecraft
