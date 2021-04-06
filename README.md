@@ -18,7 +18,7 @@ UPDATE NOTICE: If you set the GAME_VERSION to 'latest' the container will check 
 ## Run example
 ```
 docker run --name MinecraftBedrockServer -d \
-	-p 19132:19132 -p 19132:19132/udp -p 8080:9010 \
+	-p 19132:19132 -p 19132:19132/udp -p 9010:8080 \
 	--env 'GAME_VERSION=latest' \
 	--env 'UID=99' \
 	--env 'GID=100' \
