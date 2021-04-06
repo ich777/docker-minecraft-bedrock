@@ -15,6 +15,7 @@ ENV SERVER_DIR="${DATA_DIR}/serverfiles"
 ENV GAME_VERSION="template"
 ENV GAME_PARAMS="template"
 ENV GAME_PORT=19132
+ENV ENABLE_WEBCONSOLE="true"
 ENV GOTTY_PARAMS="-w --title-format MinecraftBedrockEdition"
 ENV UMASK=000
 ENV UID=99
