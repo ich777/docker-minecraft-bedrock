@@ -74,6 +74,10 @@ else
 fi
 
 echo "---Preparing Server---"
+if [ ! -f ~/.screenrc ]; then
+    echo "defscrollback 30000
+bindkey \"^C\" echo 'Blocked. Please use to command \"stop\" to shutdown the server or close this window to exit the terminal.'" > ~/.screenrc
+fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Checking for 'server.properties'---"
 if [ ! -f ${SERVER_DIR}/server.properties ]; then
