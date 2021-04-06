@@ -4,7 +4,7 @@ This container downloads Minecraft Bedrock Edition Server in the specified versi
 
 UPDATE NOTICE: If you set the GAME_VERSION to 'latest' the container will check on every start/restart if there is a newer version available, otherwise enter the preferred version number that you want to install, you also can downgrade your server (no guarantee that it works if you downgrade much versions).
 
->**WEB CONSOLE:** To connect to the Minecraft console open your browser and type in SERVERIP:9010.
+>**WEB CONSOLE:** You can connect to the Minecraft console by opening your browser and go to HOSTIP:9010 (eg: 192.168.1.1:9010) or click on WebUI on the Docker page within Unraid.
 
 ## Env params
 | Name | Value | Example |
