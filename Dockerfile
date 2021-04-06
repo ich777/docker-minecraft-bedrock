@@ -7,7 +7,8 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/*
 
 RUN wget -O /tmp/gotty.tar.gz https://github.com/yudai/gotty/releases/download/v1.0.1/gotty_linux_amd64.tar.gz && \
-	tar -C /usr/bin/ -xvf /tmp/gotty.tar.gz
+	tar -C /usr/bin/ -xvf /tmp/gotty.tar.gz && \
+	rm -rf /tmp/gotty.tar.gz
 
 ENV DATA_DIR="/serverdata"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
