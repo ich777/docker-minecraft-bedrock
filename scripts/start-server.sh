@@ -58,16 +58,14 @@ elif [ "${GAME_VERSION}" != "$INS_V" ]; then
     echo "---Creating Backup of config files---"
     mkdir ${SERVER_DIR}/backup_config_files
     mv ${SERVER_DIR}/server.properties ${SERVER_DIR}/backup_config_files/server.properties
-    mv ${SERVER_DIR}/permissions.json ${SERVER_DIR}/backup_config_files/permissions.json
-    mv ${SERVER_DIR}/whitelist.json ${SERVER_DIR}/backup_config_files/whitelist.json
+    mv ${SERVER_DIR}/*.json ${SERVER_DIR}/backup_config_files/
     echo "---Installing v${GAME_VERSION}---"
 	unzip -o bedrock-server-${GAME_VERSION}.zip
 	rm bedrock-server-${GAME_VERSION}.zip
     mv ${SERVER_DIR}/server.properties ${SERVER_DIR}/vanilla.server.properties
     echo "---Copying Backup config files back to server directory---"
     mv ${SERVER_DIR}/backup_config_files/server.properties ${SERVER_DIR}/server.properties
-    mv ${SERVER_DIR}/backup_config_files/permissions.json ${SERVER_DIR}/permissions.json
-    mv ${SERVER_DIR}/backup_config_files/whitelist.json ${SERVER_DIR}/whitelist.json
+    mv ${SERVER_DIR}/backup_config_files/*.json ${SERVER_DIR}/
     rm -R ${SERVER_DIR}/backup_config_files
     rm ${SERVER_DIR}/bedrock-server-$INS_V.installed
 	touch bedrock-server-${GAME_VERSION}.installed
