@@ -20,11 +20,10 @@ if [ "${GAME_VERSION}" == "latest" ]; then
 	GAME_VERSION=$LAT_V
 fi
 
-
 if [ -z "$INS_V" ]; then
 	echo "---Minecraft Bedrock not found, Downloading v${GAME_VERSION}---"
 	cd ${SERVER_DIR}
-	if wget -q -nc --show-progress --progress=bar:force:noscroll https://minecraft.azureedge.net/bin-linux/bedrock-server-${GAME_VERSION}.zip ; then
+	if wget --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0" -q -nc --show-progress --progress=bar:force:noscroll https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-${GAME_VERSION}.zip ; then
 		echo "---Successfully downloaded Minecraft Bedrock Edition!---"
 	else
 		echo "---Something went wrong, can't download Minecraft Bedrock Edition, putting server in sleep mode---"
@@ -43,7 +42,7 @@ if [ -z "$INS_V" ]; then
 elif [ "${GAME_VERSION}" != "$INS_V" ]; then
 	echo "---Version missmatch Installed: v$INS_V - Prefered:${GAME_VERSION}, downloading v${GAME_VERSION}---"
 	cd ${SERVER_DIR}
-	if wget -q -nc --show-progress --progress=bar:force:noscroll https://minecraft.azureedge.net/bin-linux/bedrock-server-${GAME_VERSION}.zip ; then
+	if wget --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0" -q -nc --show-progress --progress=bar:force:noscroll https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-${GAME_VERSION}.zip ; then
 		echo "---Successfully downloaded Minecraft Bedrock Edition!---"
 	else
 		echo "---Something went wrong, can't download Minecraft Bedrock Edition, putting server in sleep mode---"
