@@ -1,4 +1,9 @@
-# Minecraft Bedrock Server in Docker optimized for Unraid
+# DEPRECATED
+Please switch over to the binhex Minecraft Bedrock Dedicated Server Container: [Click](https://github.com/binhex/arch-minecraftbedrockserver)
+
+---
+
+### Minecraft Bedrock Server in Docker optimized for Unraid
 This is a Basic Minecraft Bedrock Edition Server.
 This container downloads Minecraft Bedrock Edition Server in the specified version or you can also set it to 'latest' to download and check on every restart if there is a newer version available.
 
